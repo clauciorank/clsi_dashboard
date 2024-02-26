@@ -1,0 +1,12 @@
+name: clsi-bias-precision
+title: clsi-bias-precision
+username: clauciorank
+account: clauciorank
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 11332569
+bundleId: 8299347
+url: https://clauciorank.shinyapps.io/clsi-bias-precision/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

@@ -24,7 +24,7 @@ ui <- dashboardPage(
     HTML(paste0(
       "<table style='margin-left:auto; margin-right:auto;'>",
       "<tr>",
-      "<td style='padding: 5px;'><a href='https://www.facebook.com/nationalparkservice' target='_blank'><i class='fab fa-github fa-lg'></i></a></td>",
+      "<td style='padding: 5px;'><a href='https://github.com/clauciorank/clsi_dashboard' target='_blank'><i class='fab fa-github fa-lg'></i></a></td>",
       "</tr>",
       "</table>",
       "<br>"))
@@ -41,7 +41,7 @@ ui <- dashboardPage(
               h5('For Bias and Precision analysis, references are made to EP15-A3 User Verification of Precision and Estimation of Bias; Approved Guideline—Third Edition.'),
               h5('For Method Comparison evaluations, EP09-A3 Measurement Procedure Comparison and Bias Estimation Using Patient Samples; Approved Guideline—Third Edition serves as the foundation.'),
               br(),
-              h5('Developed and mantained by Claucio Antonio Rank Filho¹ with funding from Hilab'),
+              h5('Developed and mantained by Claucio Antonio Rank Filho¹ with funding from', tags$a(href='https://hilab.com.br/en/', 'Hilab')),
               h5('¹ Data Science - HILAB - clauciorank@gmail.com')
               ),
       # Method Comparison tabs UI
