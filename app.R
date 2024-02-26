@@ -20,7 +20,14 @@ ui <- dashboardPage(
       menuItem("Bias and Precision", tabName = "bias",
                icon = icon("bullseye", "fa-lg"),
                bias_sidebar('2')
-    )
+    ),
+    HTML(paste0(
+      "<table style='margin-left:auto; margin-right:auto;'>",
+      "<tr>",
+      "<td style='padding: 5px;'><a href='https://www.facebook.com/nationalparkservice' target='_blank'><i class='fab fa-github fa-lg'></i></a></td>",
+      "</tr>",
+      "</table>",
+      "<br>"))
   )
   ),
   dashboardBody(
@@ -28,13 +35,13 @@ ui <- dashboardPage(
     tabItems(
       # Info tab
       tabItem('info',
-              h1('CLSI Metrics dashboard'),
+              h1('CLSI Metrics Dashboard'),
               h3('This comprehensive dashboard is dedicated to calculating CLSI metrics for Method Comparison, Bias, and Precision, offering precise insights into laboratory performance.'),
               h5('All calculations are derived from the esteemed CLSI Manuals, ensuring accuracy and reliability.'),
               h5('For Bias and Precision analysis, references are made to EP15-A3 User Verification of Precision and Estimation of Bias; Approved Guideline—Third Edition.'),
               h5('For Method Comparison evaluations, EP09-A3 Measurement Procedure Comparison and Bias Estimation Using Patient Samples; Approved Guideline—Third Edition serves as the foundation.'),
               br(),
-              h5('Developed and mantained by Claucio Antonio Rank Filho¹'),
+              h5('Developed and mantained by Claucio Antonio Rank Filho¹ with funding from Hilab'),
               h5('¹ Data Science - HILAB - clauciorank@gmail.com')
               ),
       # Method Comparison tabs UI

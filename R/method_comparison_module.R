@@ -164,16 +164,16 @@ comparison_server <- function(input, output, session){
   output$hot <- renderRHandsontable({
     a <- datasetInput()
     rhandsontable(a, height = 482) %>%
-      hot_col(col = 'Conventional', format = '0.00', type = 'numeric') %>%
-      hot_col(col = 'Hilab', format = '0.00', type = 'numeric')
+      hot_col(col = 'Method1', format = '0.00', type = 'numeric') %>%
+      hot_col(col = 'Method2', format = '0.00', type = 'numeric')
     
   })
   
   # Reactive data for calculations
   datasetInput <- reactive({
     if (is.null(input$hot)) {
-      mat <- data.frame('Conventional'= round(c(rep(NA, 10)), digits = 2),
-                        'Hilab'= round(c(rep(NA, 10)), digits = 2))
+      mat <- data.frame('Method1'= round(c(rep(NA, 10)), digits = 2),
+                        'Method2'= round(c(rep(NA, 10)), digits = 2))
     } else {
       mat <- hot_to_r(input$hot)
     }
@@ -184,7 +184,7 @@ comparison_server <- function(input, output, session){
   regression_info <- eventReactive(input$calculate, {
     dat <- 
       hot_to_r(input$hot) |> 
-      rename(X = Conventional, Y = Hilab) |> 
+      rename(X = Method1, Y = Method2) |> 
       filter(!is.na(X) & !is.na(Y))
     
     mcreg(dat$X, dat$Y, method.ci = input$cimethod, 
@@ -266,9 +266,9 @@ comparison_server <- function(input, output, session){
       hot_to_r(input$hot)
     
     if(input$t_test_param == 'Parametric'){
-      t.test(dat$Conventional, dat$Hilab)
+      t.test(dat$Method1, dat$Method2)
     }else{
-      wilcox.test(dat$Conventional, dat$Hilab)
+      wilcox.test(dat$Method1, dat$Method2)
     }
   })
   

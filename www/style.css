@@ -4,7 +4,22 @@
   padding-left: 20px;
 }
 
-.skin-blue.main-header.navbar {
-  background-color: #00bfb3;
+.navbar-static-top {
+  background-color: #0FD2CB!important;
 }
 
+.sidebar-toggle:hover {
+  background-color: #00BFB3!important;
+}
+
+.logo {
+  background-color: #00BFB3!important;
+}
+
+.active>a {
+  border-left-color:#0FD2CB!important;
+}
+
+.treeview>a:hover {
+  border-left-color:#0FD2CB!important;
+}

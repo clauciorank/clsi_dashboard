@@ -98,9 +98,9 @@ dat <-
       hot_to_r(input$hot)
 
 if(input$t_test_param == 'Parametric'){
-      t.test(dat$Conventional, dat$Hilab)
+      t.test(dat$Method1, dat$Method2)
     }else{
-      wilcox.test(dat$Conventional, dat$Hilab)
+      wilcox.test(dat$Method1, dat$Method2)
     }
 ```
 

@@ -10,9 +10,9 @@ get_tae <- function(data){
   min_quantile <- .5 + 20*.025
   max_quantile <- .5 + 20*.975
   
-  bias <- sort(data$Hilab - data$Conventional)
+  bias <- sort(data$Method2 - data$Method1)
   
-  bias_perc <- sort((data$Hilab - data$Conventional) / data$Hilab*100)
+  bias_perc <- sort((data$Method2 - data$Method1) / data$Hilab*100)
   
   data.frame(
     `_` = c('Low', 'High'),
