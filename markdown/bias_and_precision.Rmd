@@ -1,0 +1,71 @@
+---
+title: "Bias and Precision"
+output: html_document
+date: "2023-12-19"
+---
+
+# Data
+```{r echo=FALSE}
+hot_to_r(input$hot) |> knitr::kable()
+```
+
+# Precision
+
+## ANOVA Parameters
+
+```{r echo=FALSE}
+precision_results()$df |> knitr::kable()
+```
+
+`r glue::glue('Allowed error repetability (SR): {input$s_r}')`
+
+`r glue::glue('Allowed error within-lab (SWL): {input$s_wl}')`
+
+`r glue::glue('CV repetability(%) (CVR): {input$cv_r}')`
+
+`r glue::glue('CV within-lab(%) (CVWL): {input$cv_wl}')`
+
+
+## Upper Value Limits
+```{r echo=FALSE}
+precision_results()$df_uvl |> knitr::kable()
+```
+
+## Precision Plot
+```{r echo=FALSE}
+precision_results()$plot
+```
+
+# Bias
+
+`r glue::glue('# Calculated using scenario {input$scenario}')`
+
+```{r echo=FALSE}
+Variables <- c(
+                   expected_mean = input[[paste0('expected_mean', input$scenario, input$subscenario)]],
+                   subscenario = input$subscenario,
+                   u = input[[paste0('u', input$scenario, input$subscenario)]],
+                   U = input[[paste0('U', input$scenario, input$subscenario)]],
+                   coverage = input[[paste0('coverage', input$scenario, input$subscenario)]],
+                   k = input[[paste0('k', input$scenario, input$subscenario)]],
+                   lower = input[[paste0('lower', input$scenario, input$subscenario)]],
+                   upper = input[[paste0('upper', input$scenario, input$subscenario)]],
+                   sd_rm = input[[paste0('sd_rm', input$scenario, input$subscenario)]],
+                   nlab = input[[paste0('nlab', input$scenario, input$subscenario)]]
+)
+
+data.frame(Variables) |> knitr::kable()
+```
+
+
+## Results table
+```{r echo=FALSE}
+bias_outputs_results()$df |> knitr::kable()
+```
+
+## Plot
+```{r echo=FALSE}
+  bias_outputs_results()$plot
+```
+
+

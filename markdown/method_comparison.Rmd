@@ -1,0 +1,125 @@
+---
+title: "Method Comparison"
+output: html_document
+date: "2023-12-19"
+---
+
+# Data
+```{r echo=FALSE}
+hot_to_r(input$hot) |> 
+  knitr::kable()
+```
+
+# Analysis Parameters:
+```{r echo=FALSE}
+Parameters <- c(
+  method.ci = input$cimethod, 
+  method.reg = input$regmodel, 
+  alpha = as.numeric(input$alpha),
+  correl.method = input$cormet
+)
+
+data.frame(Parameters) |> knitr::kable()
+```
+
+# Regression results
+```{r echo=FALSE}
+printSummary(regression_info())
+```
+
+# Coefficient Plot
+```{r echo=FALSE}
+compareFit(regression_info())
+```
+
+
+# Regression Scatter Plot
+```{r echo=FALSE}
+plot_regression(regression_info(), input$cormet, input$clinical_decision1, 
+                    input$clinical_decision2, input$clinical_decision3) +
+  theme(text = element_text(size = 12))
+```
+
+# Clinical Decision CI
+```{r echo=FALSE}
+if(!is.na(input$clinical_decision1) | 
+          !is.na(input$clinical_decision2) |
+          !is.na(input$clinical_decision3)
+){
+  plot_ci(regression_info(),input$clinical_decision1,   
+          input$clinical_decision2, input$clinical_decision3)+
+    theme(text = element_text(size = 12))
+}else{
+  cat('Not Available no Clinical decision supplied')
+}
+            
+```
+
+# Difference Plot
+
+`r glue::glue('Maximum Allowed Error (%): {input$maximum_error}')`
+
+## Absolute
+```{r echo=FALSE, warning=FALSE}
+difference_plots(regression_info(), input$maximum_error/100, 'absolute', font_size = 12)
+```
+
+## Percentage
+```{r echo=FALSE, warning=FALSE}
+difference_plots(regression_info(), input$maximum_error/100, 'percentage', font_size = 12)
+```
+
+## TAE
+```{r echo=FALSE}
+get_tae(hot_to_r(input$hot)) |> knitr::kable()
+```
+
+# Bias Plot
+```{r echo=FALSE}
+Parameters <- c(
+  `Absolute Bias Allowed` = input$bias_abs_allowed, 
+  `Percentage Bias Allowed` = input$bias_perc_allowed, 
+  `Confidence Interval` = input$ci_bias
+)
+
+data.frame(Parameters) |> knitr::kable()
+```
+
+
+```{r echo=FALSE}
+limits <- calculate_total_bias(regression_info()@data$x, regression_info()@data$y, alpha = 1-as.numeric(input$ci_bias)/100)
+generate_bias_plot(limits, as.numeric(input$bias_abs_allowed), as.numeric(input$bias_perc_allowed)/100) +
+  theme(text = element_text(size = 12))
+```
+
+# t test
+```{r echo=FALSE}
+dat <- 
+      hot_to_r(input$hot)
+
+if(input$t_test_param == 'Parametric'){
+      t.test(dat$Conventional, dat$Hilab)
+    }else{
+      wilcox.test(dat$Conventional, dat$Hilab)
+    }
+```
+
+```{r echo=FALSE}
+dat <- 
+      hot_to_r(input$hot) |> 
+      tidyr::pivot_longer(1:2)
+
+dat |> 
+      ggplot(aes(name, value))+
+      geom_boxplot()+
+      theme_bw()+
+      labs(y = 'Result')+
+      theme(text = element_text(size = 22),
+            axis.title.x = element_blank())
+```
+
+
+
+
+
+
